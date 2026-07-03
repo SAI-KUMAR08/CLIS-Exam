@@ -1,0 +1,50 @@
+Link Analysis Report
+====================
+
+Date: 2026-07-03
+Target directory: /workspaces/CLIS-Exam/q3
+
+1) File, hard link, and symbolic link creation
+Command:
+echo "Linux link test file" > original.txt
+ln original.txt hardlink.txt
+ln -s original.txt symlink.txt
+Output:
+A regular file, a hard link, and a symbolic link were created.
+Observation:
+The hard link points to the same inode as the original file, while the symbolic link points to the pathname of the target.
+
+2) Inode and metadata information
+Command:
+ls -li
+stat original.txt hardlink.txt symlink.txt
+Output:
+original.txt and hardlink.txt shared the same inode number.
+symlink.txt had a different inode because it is a separate link object.
+Observation:
+This confirms that hard links and regular files share the same inode, whereas symbolic links are distinct entries.
+
+3) Behavior when reading files
+Command:
+cat original.txt
+cat hardlink.txt
+cat symlink.txt
+Output:
+All three paths displayed the same content.
+Observation:
+Both hard links and symbolic links resolve to the same file data when the target exists.
+
+4) Effect of deleting the original file
+Command:
+rm original.txt
+ls -li
+cat hardlink.txt
+cat symlink.txt
+Output:
+The hard link remained usable, but the symbolic link failed because its target no longer existed.
+Observation:
+Deleting the original file removes the directory entry for the file, but the hard link continues to access the same inode until the link count reaches zero. The symbolic link breaks because it only stores the path string.
+
+5) Conclusion
+Observation:
+Hard links are alternative directory entries for the same inode, while symbolic links are pointers to another path. Hard links survive file deletion as long as at least one link remains, but symbolic links become dangling pointers when the referenced file is removed.

@@ -1,0 +1,55 @@
+Environment Report
+=================
+
+Date: 2026-07-03
+Workspace: /workspaces/CLIS-Exam
+
+1) Username and groups
+Command:
+whoami
+Output:
+codespace
+Observation:
+The current user account is codespace.
+
+Command:
+groups
+Output:
+codespace pipx python oryx golang docker sdkman rvm php conda nvs nvm hugo ssh
+Observation:
+The account belongs to several supplementary groups, which is typical for a development container user.
+
+2) Current shell
+Command:
+echo "$SHELL"
+Output:
+/bin/bash
+Observation:
+The shell in use is Bash.
+
+3) Current working directory
+Command:
+pwd
+Output:
+/workspaces/CLIS-Exam
+Observation:
+The terminal is currently operating from the repository root.
+
+4) Workspace contents
+Command:
+ls -ls
+Output:
+Total listing of the workspace root and repository folders
+Observation:
+The workspace contains the CLIS-Exam repository with q1, q2, q3, q4, and q5 folders.
+
+5) Network connectivity
+Command:
+curl -s --max-time 10 https://chatgpt.com > /dev/null && echo "Network: chatgpt.com reachable"
+Output:
+Network: chatgpt.com reachable
+Observation:
+The environment has outbound network access to the target site.
+
+Summary:
+The Linux environment is verified successfully and the user account details are available for further lab work.

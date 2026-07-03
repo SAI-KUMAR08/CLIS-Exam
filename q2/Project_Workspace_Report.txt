@@ -1,0 +1,59 @@
+Project Workspace Report
+========================
+
+Date: 2026-07-03
+Target path: /workspaces/CLIS-Exam/q2/secure_workspace
+
+1) Directory structure created
+Command:
+mkdir -p secure_workspace/{docs,src,logs}
+Output:
+The directories docs, src, and logs were created inside secure_workspace.
+Observation:
+A structured project workspace was created for documents, source files, and logs.
+
+2) Files created
+Command:
+touch secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+Output:
+Files were created successfully.
+Observation:
+The workspace now contains project documents and application files.
+
+3) Permissions before modification
+Command:
+ls -ld secure_workspace secure_workspace/*
+Output:
+The initial directories were created with broad access permissions.
+Observation:
+The workspace directories were readable and writable by the owner and also accessible to others by default.
+
+4) Permissions after modification
+Command:
+chmod 750 secure_workspace
+chmod 750 secure_workspace/docs secure_workspace/src secure_workspace/logs
+chmod 640 secure_workspace/docs/plan.txt secure_workspace/src/app.txt secure_workspace/logs/activity.log
+Output:
+Permissions were updated to restrict access to authorized users.
+Observation:
+The parent workspace directory and subdirectories now have owner read/write/execute access, while group and others have no access. The files are readable by the owner and group only, with no access for others.
+
+5) Ownership details
+Command:
+ls -ld secure_workspace secure_workspace/*
+Output:
+The owner and group are both codespace for the created items.
+Observation:
+The workspace is owned by the current user, which is appropriate for local lab work.
+
+6) Umask value
+Command:
+umask
+Output:
+0022
+Observation:
+The default umask value preserves regular file readability and removes write permission for group and others by default.
+
+7) Why these permissions matter
+Observation:
+The 750 permissions on directories protect the workspace from general access, while 640 on files limits sensitive content visibility. This arrangement helps safeguard project data and documentation from unauthorized users.

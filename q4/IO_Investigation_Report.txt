@@ -1,0 +1,45 @@
+I/O Investigation Report
+========================
+
+Date: 2026-07-03
+Target directory: /workspaces/CLIS-Exam/q4
+
+1) Creating a sample log file
+Command:
+echo "sample log line" > app.log
+Output:
+A sample log file was created.
+Observation:
+The file is available for file descriptor and redirection experiments.
+
+2) Observing open files
+Command:
+exec 3<app.log
+lsof -p $$ | grep app.log
+ls -l /proc/$$/fd | grep app.log
+Output:
+The shell opened file descriptor 3 for reading app.log.
+Observation:
+Linux exposes open files through the process file descriptor table and the /proc filesystem.
+
+3) Standard output and error redirection
+Command:
+ls -l > stdout.txt
+ls /not_a_real_path 2> stderr.txt
+(ls -l && ls /not_a_real_path) > combined.txt 2>&1
+Output:
+stdout.txt captured normal output, stderr.txt captured the error, and combined.txt captured both streams.
+Observation:
+Redirection operators separate standard output and standard error, which allows command output to be captured or suppressed independently.
+
+4) Resource limits
+Command:
+ulimit -a
+Output:
+The shell reported several resource limits, including file size, process count, and stack size limits.
+Observation:
+The environment allows a high number of open files and process resources for normal development work.
+
+5) Conclusion
+Observation:
+Linux manages file I/O through file descriptors, which represent open files for processes. Redirection changes where data streams are sent, and resource limits help control the behavior of processes in a shared environment.

@@ -1,0 +1,47 @@
+Storage Assessment Report
+=========================
+
+Date: 2026-07-03
+Target directory: /workspaces/CLIS-Exam/q5
+
+1) Available storage devices
+Command:
+lsblk
+Output:
+The system shows several block devices, including sda, sdb, sdc, and loop devices.
+Observation:
+The container environment has local disk partitions and additional loop-backed storage devices.
+
+2) Mounted filesystems
+Command:
+mount | head
+Output:
+The root filesystem is mounted as overlay, and several temporary or container-related filesystems are mounted as tmpfs and proc.
+Observation:
+The environment uses overlay and tmpfs filesystems for containerized operations.
+
+3) Disk usage statistics
+Command:
+df -h
+Output:
+The root filesystem has 32G total, with roughly 21G available.
+The /tmp mount has around 40G available.
+Observation:
+Disk space is currently sufficient for the lab activities and general development work.
+
+4) Inode usage
+Command:
+df -i
+Output:
+The filesystems show low inode utilization percentages, indicating that inode exhaustion is not an immediate issue.
+Observation:
+The current storage layout is healthy from an inode perspective.
+
+5) Storage health observations
+Observation:
+The environment has multiple mounted filesystems with ample free space. The main container filesystem is healthy, and /tmp has a large free space margin.
+
+6) Recommendations
+Observation:
+To improve storage utilization, remove temporary files regularly, monitor log growth, and keep only necessary container data on the writable layer. For a production server, adding monitoring and cleanup automation would further improve long-term storage health.
+
